@@ -29,10 +29,15 @@ resource "azurerm_kubernetes_cluster" "main" {
     os_disk_size_gb = 50
   }
 
-  service_principal {
-    client_id     = var.client_id
-    client_secret = var.client_secret
+  addon_profile {
+    kube_dashboard {
+      enabled = true
+    }
   }
+
+   identity {
+     type = "SystemAssigned"
+   }
 
   dynamic addon_profile {
     for_each = var.enable_log_analytics_workspace ? ["log_analytics"] : []

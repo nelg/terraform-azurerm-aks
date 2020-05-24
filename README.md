@@ -7,6 +7,7 @@ This Terraform module deploys a Kubernetes cluster on Azure using AKS (Azure Kub
 
 ```hcl
 provider "azurerm" {
+  version = "~> 2.5.0"
   features {}
 }
 
@@ -16,10 +17,8 @@ resource "azurerm_resource_group" "example" {
 }
 
 module "aks" {
-  source              = "Azure/aks/azurerm"
+  source              = "github.com/nelg/terraform-azurerm-aks"
   resource_group_name = azurerm_resource_group.example.name
-  client_id           = "your-service-principal-client-appid"
-  client_secret       = "your-service-principal-client-password"
   prefix              = "prefix"
 }
 ```
